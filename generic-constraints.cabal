@@ -13,7 +13,6 @@ Build-type:           Simple
 Cabal-version:        >= 1.8
 
 Extra-Source-Files:
-  examples/*.hs
   CHANGELOG
 
 Library
