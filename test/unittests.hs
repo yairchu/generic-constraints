@@ -1,14 +1,20 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE
+    DeriveGeneric
+  , StandaloneDeriving
+  , UndecidableInstances
+#-}
 
-import Data.Functor.Contravariant
-import Data.Functor.Identity
+import Generics.Constraints
 import GHC.Generics
 import Test.HUnit
-import Generics.Constraints
 
-data T a = T0 | T1 a | T2 a a deriving (Eq, Show, Generic, Generic1)
-data Pair a = Pair a a deriving (Eq, Show, Generic, Generic1)
+data T a = T (a Int)
+    deriving Generic
+
+deriving instance Constraints (T a) Eq   => Eq   (T a)
+deriving instance Constraints (T a) Ord  => Ord  (T a)
+deriving instance Constraints (T a) Show => Show (T a)
 
 main = runTestTT $ test
-  [ (pure () :: IO ())
+  [ assert (T [5] > T [3])
   ]
