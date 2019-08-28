@@ -6,10 +6,10 @@
   , MultiParamTypeClasses
   , UndecidableSuperClasses
   #-}
-module Generics.OneLiner.Internal.Unary (Constraints) where
+module Generics.Constraints (Constraints) where
 
 import Data.Kind (Constraint)
-import qualified Generics.OneLiner.Internal as I
+import qualified Generics.Constraints.Internal as I
 
 -- | Constraint-level 'duplicate', of kind @(k -> Constraint) -> k -> k -> Constraint@.
 class (c a, a ~ b) => D (c :: k -> Constraint) a b

@@ -20,9 +20,8 @@ Library
   HS-Source-Dirs:  src
 
   Exposed-modules:
-    Generics.OneLiner
-    Generics.OneLiner.Internal
-    Generics.OneLiner.Internal.Unary
+    Generics.Constraints
+    Generics.Constraints.Internal
 
   Build-depends:
       base          >= 4.9 && < 5

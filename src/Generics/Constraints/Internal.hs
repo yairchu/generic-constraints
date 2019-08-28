@@ -6,7 +6,7 @@
   , FlexibleInstances
   , MultiParamTypeClasses
   #-}
-module Generics.OneLiner.Internal (Constraints) where
+module Generics.Constraints.Internal (Constraints) where
 
 import GHC.Generics
 import GHC.Types (Constraint)
