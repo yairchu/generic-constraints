@@ -1,8 +1,4 @@
 CHANGELOG
 
-0.9 -> 1.0
-  - Added type changing traversals with Generics.OneLiner.Binary
-  - Changed Generics.OneLiner.Internal to work on binary type classes.
-  - Added Generics.OneLiner.Internal.Unary to convert the internals to unary
-  - Moved classes to Generics.OneLiner.Classes
-  - Started a change log
+1.0
+  - Extracted generic-constraints from Sjoerd Visscher's & Xia Li-yao's one-liner library, as advised by Sjoerd

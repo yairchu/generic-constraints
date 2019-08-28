@@ -1,15 +1,13 @@
-Name:                 one-liner
-Version:              1.0.1
-Synopsis:             Constraint-based generics
-Description:          Write short and concise generic instances of type classes.
-                      one-liner is particularly useful for writing default
-                      implementations of type class methods.
-Homepage:             https://github.com/sjoerdvisscher/one-liner
-Bug-reports:          https://github.com/sjoerdvisscher/one-liner/issues
+Name:                 generic-constraints
+Version:              1.0.0
+Synopsis:             Constraints via Generic
+Description:          Write short and concise contexts based on generics
+Homepage:             https://github.com/yairchu/generic-constraints
+Bug-reports:          https://github.com/yairchu/generic-constraints/issues
 License:              BSD3
 License-file:         LICENSE
-Author:               Sjoerd Visscher, Xia Li-yao
-Maintainer:           sjoerd@w3future.com
+Author:               Sjoerd Visscher, Xia Li-yao, Yair Chuchem
+Maintainer:           yairchu@gmail.com
 Category:             Generics
 Build-type:           Simple
 Cabal-version:        >= 1.8
@@ -39,7 +37,7 @@ Library
 
 source-repository head
   type:     git
-  location: git://github.com/sjoerdvisscher/one-liner.git
+  location: git://github.com/yairchu/generic-constraints.git
 
 Test-suite unittests
   Hs-source-dirs:  test

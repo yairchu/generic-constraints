@@ -1,3 +1,3 @@
-Constraint-based generics
+Constraints via Generic
 
-Write short and concise generic instances of type classes.
+Write short and concise contexts based on generics.
