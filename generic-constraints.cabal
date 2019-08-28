@@ -1,5 +1,5 @@
 Name:                 generic-constraints
-Version:              1.0.0
+Version:              1.1.0
 Synopsis:             Constraints via Generic
 Description:          Write short and concise contexts based on generics
 Homepage:             https://github.com/yairchu/generic-constraints
