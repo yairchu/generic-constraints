@@ -7,7 +7,8 @@
   #-}
 module Generics.Constraints
     ( Constraints
-    , makeDeriving, makeInstance
+    , makeDeriving, makeDerivings
+    , makeInstance, makeInstances
     ) where
 
 import           Data.Kind (Constraint, Type)
@@ -30,6 +31,15 @@ type instance Constraints' (M1 i t f) c = Constraints' f c
 -- requirements for an instance for `t` of class `c`.
 -- It requires an instance of class `c` for each component of `t`.
 type Constraints t c = Constraints' (Rep t) c
+
+makeDerivings :: [T.Name] -> [T.Name] -> T.DecsQ
+makeDerivings = makeMany makeDeriving
+
+makeInstances :: [T.Name] -> [T.Name] -> T.DecsQ
+makeInstances = makeMany makeDeriving
+
+makeMany :: (T.Name -> T.Name -> T.DecsQ) -> [T.Name] -> [T.Name] -> T.DecsQ
+makeMany f classes types = concat <$> sequence (f <$> classes <*> types)
 
 makeDeriving :: T.Name -> T.Name -> T.DecsQ
 makeDeriving = makeCommon (T.StandaloneDerivD Nothing)
