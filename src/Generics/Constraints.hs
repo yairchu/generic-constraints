@@ -6,10 +6,10 @@
   #-}
 module Generics.Constraints (Constraints) where
 
-import Data.Kind (Constraint)
+import Data.Kind (Constraint, Type)
 import GHC.Generics
 
-type family Constraints' (t :: * -> *) (c :: * -> Constraint) :: Constraint
+type family Constraints' (t :: Type -> Type) (c :: Type -> Constraint) :: Constraint
 type instance Constraints' V1 c = ()
 type instance Constraints' U1 c = ()
 type instance Constraints' (f :+: g) c = (Constraints' f c, Constraints' g c)
