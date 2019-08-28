@@ -21,7 +21,6 @@ Library
 
   Exposed-modules:
     Generics.Constraints
-    Generics.Constraints.Internal
 
   Build-depends:
       base          >= 4.9 && < 5
