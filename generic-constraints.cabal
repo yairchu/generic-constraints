@@ -23,6 +23,8 @@ Library
 
   Build-depends:
       base          >= 4.9 && < 5
+    , template-haskell
+    , th-abstraction
 
   ghc-options:
     -Wall

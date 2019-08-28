@@ -1,5 +1,6 @@
 {-# LANGUAGE
     DeriveGeneric
+  , TemplateHaskell
   , StandaloneDeriving
   , UndecidableInstances
 #-}
@@ -11,9 +12,9 @@ import Test.HUnit
 data T a = T (a Int)
     deriving Generic
 
-deriving instance Constraints (T a) Eq   => Eq   (T a)
-deriving instance Constraints (T a) Ord  => Ord  (T a)
-deriving instance Constraints (T a) Show => Show (T a)
+makeDeriving ''Eq   ''T
+makeDeriving ''Ord  ''T
+makeDeriving ''Show ''T
 
 main = runTestTT $ test
   [ assert (T [5] > T [3])
