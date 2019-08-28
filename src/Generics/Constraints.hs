@@ -36,7 +36,7 @@ makeDerivings :: [T.Name] -> [T.Name] -> T.DecsQ
 makeDerivings = makeMany makeDeriving
 
 makeInstances :: [T.Name] -> [T.Name] -> T.DecsQ
-makeInstances = makeMany makeDeriving
+makeInstances = makeMany makeInstance
 
 makeMany :: (T.Name -> T.Name -> T.DecsQ) -> [T.Name] -> [T.Name] -> T.DecsQ
 makeMany f classes types = concat <$> sequence (f <$> classes <*> types)
