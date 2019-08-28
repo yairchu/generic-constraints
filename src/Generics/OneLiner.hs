@@ -271,7 +271,7 @@ zipWithA1 f = dimap Zip runZip $ generic1 @c $ dimap runZip Zip f
 inm2 :: (t -> t -> m) -> t -> t -> Compose Maybe (Const m) a
 inm2 f = Compose .: Just .: Const .: f
 {-# INLINE inm2 #-}
-outm2 :: Monoid m => m -> (t -> t -> Compose Maybe (Const m) a) -> t -> t -> m
+outm2 :: m -> (t -> t -> Compose Maybe (Const m) a) -> t -> t -> m
 outm2 z f = maybe z getConst .: getCompose .: f
 {-# INLINE outm2 #-}
 

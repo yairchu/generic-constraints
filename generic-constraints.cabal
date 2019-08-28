@@ -35,6 +35,14 @@ Library
     , profunctors   >= 5.2 && < 6.0
     , tagged        >= 0.8 && < 0.9
 
+  ghc-options:
+    -Wall
+    -Wnoncanonical-monad-instances
+    -Wcompat
+    -Wincomplete-record-updates
+    -Wincomplete-uni-patterns
+    -Wredundant-constraints
+
 source-repository head
   type:     git
   location: git://github.com/yairchu/generic-constraints.git

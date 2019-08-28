@@ -57,7 +57,6 @@ module Generics.OneLiner.Binary (
   AnyType
 ) where
 
-import GHC.Generics
 import Control.Applicative
 import Data.Bifunctor.Biff
 import Data.Profunctor
