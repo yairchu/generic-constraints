@@ -1,0 +1,40 @@
+name: generic-constraints
+version: '1.1.1'
+synopsis: Constraints via Generic
+description: Standalone deriving without boiler-plate
+category: Generics
+author:
+- Sjoerd Visscher
+- Xia Li-yao
+- Yair Chuchem
+maintainer: yairchu@gmail.com
+license: BSD3
+homepage: https://github.com/yairchu/generic-constraints
+git: git://github.com/yairchu/generic-constraints.git
+bug-reports: https://github.com/yairchu/generic-constraints/issues
+extra-source-files:
+- README.md
+- CHANGELOG
+library:
+  source-dirs: src
+  ghc-options:
+  - -Wall
+  - -Wnoncanonical-monad-instances
+  - -Wcompat
+  - -Wincomplete-record-updates
+  - -Wincomplete-uni-patterns
+  - -Wredundant-constraints
+  exposed-modules:
+  - Generics.Constraints
+  dependencies:
+  - base >=4.9 && <5
+  - template-haskell
+  - th-abstraction
+tests:
+  unittests:
+    main: unittests.hs
+    source-dirs: test
+    dependencies:
+    - base
+    - HUnit
+    - generic-constraints
