@@ -1,5 +1,5 @@
 name: generic-constraints
-version: '1.1.1'
+version: '1.1.1.1'
 synopsis: Constraints via Generic
 description: Standalone deriving without boiler-plate
 category: Generics
