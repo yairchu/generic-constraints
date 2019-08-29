@@ -12,8 +12,7 @@ Category:             Generics
 Build-type:           Simple
 Cabal-version:        >= 1.8
 
-Extra-Source-Files:
-  CHANGELOG
+Extra-Source-Files: README.md, CHANGELOG
 
 Library
   HS-Source-Dirs:  src
