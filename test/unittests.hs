@@ -1,10 +1,10 @@
 {-# LANGUAGE
     DeriveGeneric
-  , DerivingStrategies
   , TemplateHaskell
+  , DerivingStrategies
   , StandaloneDeriving
   , UndecidableInstances
-#-}
+  #-}
 
 import Generics.Constraints
 import GHC.Generics

@@ -12,8 +12,7 @@
 -- your declarations can be even more concise.
 
 {-# LANGUAGE
-    PolyKinds
-  , TypeFamilies
+    TypeFamilies
   , TypeOperators
   , ConstraintKinds
   , TemplateHaskell
