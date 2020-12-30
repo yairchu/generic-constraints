@@ -1,5 +1,6 @@
 {-# LANGUAGE
     DeriveGeneric
+  , DerivingStrategies
   , TemplateHaskell
   , StandaloneDeriving
   , UndecidableInstances
@@ -9,8 +10,8 @@ import Generics.Constraints
 import GHC.Generics
 import Test.HUnit
 
-data T a = T (a Int)
-    deriving Generic
+newtype T a = T (a Int)
+    deriving stock Generic
 
 makeDeriving ''Eq   ''T
 makeDeriving ''Ord  ''T
