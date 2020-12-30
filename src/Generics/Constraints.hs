@@ -27,7 +27,7 @@ module Generics.Constraints
 
 import           Data.Kind (Constraint, Type)
 import           GHC.Generics
-import qualified Language.Haskell.TH as T
+import           Language.Haskell.TH hiding (Type)
 import qualified Language.Haskell.TH.Datatype as D
 
 type family Constraints' (t :: Type -> Type) (c :: Type -> Constraint) :: Constraint
@@ -55,7 +55,7 @@ type Constraints t c = Constraints' (Rep t) c
 -- > makeDerivings [''Eq, ''Ord, ''Show] [''MyType, ''MyOtherType]
 --
 -- Generates the deriving declarations for all given classes and types.
-makeDerivings :: [T.Name] -> [T.Name] -> T.DecsQ
+makeDerivings :: [Name] -> [Name] -> DecsQ
 makeDerivings = makeMany makeDeriving
 
 -- | `TemplateHaskell` generation of multiple instance declarations.
@@ -63,10 +63,10 @@ makeDerivings = makeMany makeDeriving
 -- > makeInstances [''Binary, ''NFData] [''MyType, ''MyOtherType]
 --
 -- Generates the instances declarations for all given classes and types.
-makeInstances :: [T.Name] -> [T.Name] -> T.DecsQ
+makeInstances :: [Name] -> [Name] -> DecsQ
 makeInstances = makeMany makeInstance
 
-makeMany :: (T.Name -> T.Name -> T.DecsQ) -> [T.Name] -> [T.Name] -> T.DecsQ
+makeMany :: (Name -> Name -> DecsQ) -> [Name] -> [Name] -> DecsQ
 makeMany f classes types = concat <$> sequence (f <$> classes <*> types)
 
 -- | `TemplateHaskell` generation of a standalone deriving declaration.
@@ -76,8 +76,8 @@ makeMany f classes types = concat <$> sequence (f <$> classes <*> types)
 -- Generates:
 --
 -- > deriving instance Constraints MyType Ord => Ord MyType
-makeDeriving :: T.Name -> T.Name -> T.DecsQ
-makeDeriving = makeCommon T.standaloneDerivD
+makeDeriving :: Name -> Name -> DecsQ
+makeDeriving = makeCommon standaloneDerivD
 
 -- | `TemplateHaskell` generation of an instance declaration with no methods.
 --
@@ -86,14 +86,14 @@ makeDeriving = makeCommon T.standaloneDerivD
 -- Generates:
 --
 -- > instance Constraints MyType Binary => Binary MyType
-makeInstance :: T.Name -> T.Name -> T.DecsQ
-makeInstance = makeCommon (\c i -> T.instanceD c i [])
+makeInstance :: Name -> Name -> DecsQ
+makeInstance = makeCommon (\c i -> instanceD c i [])
 
-makeCommon :: (T.CxtQ  -> T.TypeQ -> T.DecQ) -> T.Name -> T.Name -> T.DecsQ
+makeCommon :: (CxtQ  -> TypeQ -> DecQ) -> Name -> Name -> DecsQ
 makeCommon f clsName typName =
     do
         info <- D.reifyDatatype typName
-        let typ = foldl T.appT (T.conT typName) (T.varT . D.tvName <$> D.datatypeVars info)
+        let typ = foldl appT (conT typName) (varT . D.tvName <$> D.datatypeVars info)
         pure <$> f (pure <$> [t|Constraints $typ $c|]) [t|$c $typ|]
     where
-        c = T.conT clsName
+        c = conT clsName
