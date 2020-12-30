@@ -16,7 +16,7 @@
   , TypeFamilies
   , TypeOperators
   , ConstraintKinds
-  , TemplateHaskellQuotes
+  , TemplateHaskell
   #-}
 module Generics.Constraints
     ( Constraints
@@ -77,7 +77,7 @@ makeMany f classes types = concat <$> sequence (f <$> classes <*> types)
 --
 -- > deriving instance Constraints MyType Ord => Ord MyType
 makeDeriving :: T.Name -> T.Name -> T.DecsQ
-makeDeriving = makeCommon (T.StandaloneDerivD Nothing)
+makeDeriving = makeCommon T.standaloneDerivD
 
 -- | `TemplateHaskell` generation of an instance declaration with no methods.
 --
@@ -87,17 +87,13 @@ makeDeriving = makeCommon (T.StandaloneDerivD Nothing)
 --
 -- > instance Constraints MyType Binary => Binary MyType
 makeInstance :: T.Name -> T.Name -> T.DecsQ
-makeInstance = makeCommon (\c i -> T.InstanceD Nothing c i [])
+makeInstance = makeCommon (\c i -> T.instanceD c i [])
 
-makeCommon :: ([T.Type] -> T.Type -> T.Dec) -> T.Name -> T.Name -> T.DecsQ
+makeCommon :: (T.CxtQ  -> T.TypeQ -> T.DecQ) -> T.Name -> T.Name -> T.DecsQ
 makeCommon f clsName typName =
-    r <$> D.reifyDatatype typName
+    do
+        info <- D.reifyDatatype typName
+        let typ = foldl T.appT (T.conT typName) (T.varT . D.tvName <$> D.datatypeVars info)
+        pure <$> f (pure <$> [t|Constraints $typ $c|]) [t|$c $typ|]
     where
-        r info =
-            [ f [T.ConT ''Constraints `T.AppT` typ `T.AppT` T.ConT clsName]
-                (T.ConT clsName `T.AppT` typ)
-            ]
-            where
-                typ =
-                    foldl T.AppT (T.ConT typName)
-                    (T.VarT . D.tvName <$> D.datatypeVars info)
+        c = T.conT clsName
